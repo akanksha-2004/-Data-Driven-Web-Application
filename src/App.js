@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+// frontend/src/App.js
+import "./App.css";
+import React, { useState } from "react";
+import UploadCSV from "./components/UploadCSV";
+import PricingCalculator from "./components/PricingCalculator";
 
 function App() {
+  const [csvData, setCSVData] = useState(null);
+
+  const handleUpload = (data) => {
+    setCSVData(data);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>CSV Upload</h1>
+      <UploadCSV onUpload={handleUpload} />
+      <hr />
+      {csvData && (
+        <>
+          <h2>CSV Data</h2>
+          <pre>{JSON.stringify(csvData, null, 2)}</pre>
+        </>
+      )}
+      <hr />
+      <h2>Subscription Pricing Calculator</h2>
+      <PricingCalculator />
     </div>
   );
 }
